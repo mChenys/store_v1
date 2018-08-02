@@ -8,4 +8,8 @@ public interface UserService {
 
 	User active(String code) throws Exception;
 
+	User checkUserName(String username) throws Exception;
+
+	User checkEmail(String email) throws Exception;
+
 }

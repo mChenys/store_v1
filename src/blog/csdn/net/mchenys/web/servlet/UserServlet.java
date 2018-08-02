@@ -81,4 +81,42 @@ public class UserServlet extends BaseServlet {
 		return "/jsp/msg.jsp";
 		
 	}
+	/**
+	 * 检查用户是否已经占用
+	 */
+	public String checkName(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String username = request.getParameter("username");
+		UserService service = new UserServiceImpl();
+		User user = service.checkUserName(username);
+		response.getWriter().println(user==null?"true":"false");//用户不存在返回"true",存在返回"false"
+		return null;
+	}
+	
+	/**
+	 * 检查邮箱是否已经占用
+	 */
+	public String checkEmail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String email = request.getParameter("email");
+		UserService service = new UserServiceImpl();
+		User user = service.checkEmail(email);
+		response.getWriter().println(user==null?"true":"false");//用户不存在返回"true",存在返回"false"
+		return null;
+	}
+	/**
+	 * 检查验证码
+	 */
+	public String checkCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String rCode=request.getParameter("code");
+		String sCode=(String) request.getSession().getAttribute("sessionCode");
+		System.out.println("rCode:"+rCode+" sCode:"+sCode);
+		//一次性验证码 用完之后从session中移除
+		if(sCode.equalsIgnoreCase(rCode)) {
+			request.getSession().removeAttribute("sessionCode");
+			response.getWriter().println("true");
+		}else {
+			response.getWriter().println("false");//验证码正确返回"true",否则返回"false"
+		}
+		
+		return null;
+	}
 }

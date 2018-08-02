@@ -12,10 +12,14 @@ public class UserServiceImpl implements UserService {
 	public void regist(User user) throws Exception {
 		UserDao dao = new UserDaoImpl();
 		dao.add(user);
-
+			
 		// 发送验证邮箱
-		MailUtils.sendMail(user.getEmail(),
-				"账户注册成功,<a href='http://localhost/storev1/user?act=active&code=" + user.getCode() + "'>点击此激活</a>");
+		try {
+			MailUtils.sendMail(user.getEmail(),
+					"账户注册成功,<a href='http://localhost/storev1/user?act=active&code=" + user.getCode() + "'>点击此激活</a>");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -28,6 +32,18 @@ public class UserServiceImpl implements UserService {
 			dao.update(user);
 		}
 		return user;
+	}
+
+	@Override
+	public User checkUserName(String username) throws Exception {
+		UserDao dao = new UserDaoImpl();
+		return dao.getByName(username);
+	}
+
+	@Override
+	public User checkEmail(String email) throws Exception {
+		UserDao dao = new UserDaoImpl();
+		return dao.getByEmail(email);
 	}
 
 }

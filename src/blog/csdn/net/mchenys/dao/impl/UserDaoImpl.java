@@ -41,4 +41,18 @@ public class UserDaoImpl implements UserDao {
 				user.getBirthday(),user.getState(),user.getUid());
 	}
 
+	@Override
+	public User getByName(String username) throws Exception {
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql= "select * from user where username=? limit 1";
+		return qr.query(sql, new BeanHandler<User>(User.class),username);
+	}
+
+	@Override
+	public User getByEmail(String email) throws Exception {
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql= "select * from user where email=? limit 1";
+		return qr.query(sql, new BeanHandler<User>(User.class),email);
+	}
+
 }

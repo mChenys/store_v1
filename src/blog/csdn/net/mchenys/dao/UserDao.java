@@ -10,4 +10,8 @@ public interface UserDao {
 
 	void update(User user) throws Exception;
 
+	User getByName(String username) throws Exception;
+
+	User getByEmail(String email) throws Exception;
+
 }

@@ -2,15 +2,17 @@
     pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
-	<head></head>
+<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>会员登录</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css" type="text/css" />
 		<script src="${pageContext.request.contextPath}/js/jquery-1.11.3.min.js" type="text/javascript"></script>
 		<script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="text/javascript"></script>
-<!-- 引入自定义css文件 style.css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css"/>
+		<script type="text/javascript" src="./js/jquery.validate.js"></script>
+		<script type="text/javascript" src="./js/messages_zh.js"></script>
+		<!-- 引入自定义css文件 style.css -->
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css"/>
 
 <style>
   body{
@@ -33,6 +35,76 @@ font {
     padding: 0 10px;
 }
  </style>
+ 
+ <script type="text/javascript">
+ 	
+ 	$(function(){
+ 		$("#formId").validate({
+ 			rules:{
+ 				username:{
+ 					required:true,
+ 					remote:{
+ 	                    type:"POST",
+ 	                    url:"${pageContext.request.contextPath}/user?act=checkName", //请求地址
+ 	                    data:{ //提交的参数
+ 	                        username:function(){ return $("#username").val(); }//格式一
+ 	                    }
+ 	                }
+
+ 				},
+ 				password:"required",
+ 				repassword:{
+ 					equalTo:"[name='password']"
+ 				},
+ 				email:{
+ 					required:true,
+ 					email:true,
+ 					remote:{
+ 						type:"POST",
+ 						url:"${pageContext.request.contextPath}/user?act=checkEmail",
+ 						data:{emial:$("#inputEmail3").val()} //格式二
+ 					}
+ 				},
+ 				birthday:{
+ 					required:true,
+ 					date:true
+ 				},
+				name:"required",
+				code:{
+					required:true,
+					remote:{
+						type:"POST",
+ 						url:"${pageContext.request.contextPath}/user?act=checkCode",
+ 						data:{emial:$("#code").val() }
+ 					}
+				}
+				
+ 			},
+ 			messages:{
+ 				username:{
+ 					required:"用户名必填",
+ 	                remote:"用户名已存在"
+ 				},
+ 				password:"密码必填",
+ 				repassword:"两次输入密码不匹配",
+ 				email:{
+ 					required:"邮箱名必填",
+ 	 	            remote:"邮箱已被使用"
+ 				},
+ 				name:"昵称必填",
+ 				code:{
+ 					required:"验证码名必填",
+ 	 	            remote:"验证码错误"
+ 				}
+ 			}
+ 		})
+ 		
+ 		
+ 	
+ 		
+ 	})
+ </script>
+ 
 </head>
 <body>
 
@@ -45,7 +117,7 @@ font {
             -->
 			<div class="container-fluid">
 				<div class="col-md-4">
-					<img src="${pageContext.request.contextPath}/img/logo2.png" />
+					<%-- <img src="${pageContext.request.contextPath}/img/logo2.png" /> --%>
 				</div>
 				<div class="col-md-5">
 					<img src="${pageContext.request.contextPath}/img/header.png" />
@@ -112,7 +184,7 @@ font {
 
 	<div class="col-md-8" style="background:#fff;padding:40px 80px;margin:30px;border:7px solid #ccc;">
 		<font>会员注册</font>USER REGISTER
-		<form class="form-horizontal" style="margin-top:5px;" method="post" action="${pageContext.request.contextPath }/user?act=regist">
+		<form class="form-horizontal" id="formId" style="margin-top:5px;" method="post" action="${pageContext.request.contextPath }/user?act=regist">
 			 <div class="form-group">
 			    <label for="username" class="col-sm-2 control-label">用户名</label>
 			    <div class="col-sm-6">
@@ -128,13 +200,13 @@ font {
 			   <div class="form-group">
 			    <label for="confirmpwd" class="col-sm-2 control-label">确认密码</label>
 			    <div class="col-sm-6">
-			      <input type="password" class="form-control" id="confirmpwd" placeholder="请输入确认密码">
+			      <input type="password" class="form-control" id="confirmpwd" placeholder="请输入确认密码" name="repassword">
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 			    <div class="col-sm-6">
-			      <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email">
+			      <input type="email" class="form-control" id="inputEmail3"  placeholder="Email" name="email">
 			    </div>
 			  </div>
 			 <div class="form-group">
@@ -143,15 +215,17 @@ font {
 			      <input type="text" class="form-control" id="usercaption" placeholder="请输入姓名" name="name">
 			    </div>
 			  </div>
+			  
 			  <div class="form-group opt">  
 			  <label for="inlineRadio1" class="col-sm-2 control-label">性别</label>  
 			  <div class="col-sm-6">
-			    <label class="radio-inline">
-			  <input type="radio" name="sex" value="男" id="inlineRadio1" value="option1"> 男
+			<label class="radio-inline">
+			  <input type="radio" name="sex" value="男" id="inlineRadio1" value="option1" checked="checked"> 男
 			</label>
 			<label class="radio-inline">
 			  <input type="radio" name="sex" value="女"id="inlineRadio2" value="option2"> 女
 			</label>
+			<label for="sex" class="error"></label>
 			</div>
 			  </div>		
 			  <div class="form-group">
@@ -164,11 +238,11 @@ font {
 			  <div class="form-group">
 			    <label for="date" class="col-sm-2 control-label">验证码</label>
 			    <div class="col-sm-3">
-			      <input type="text" class="form-control"  >
+			      <input type="text" class="form-control"  id="code" name="code">
 			      
 			    </div>
 			    <div class="col-sm-2">
-			    <img src="${pageContext.request.contextPath}/image/captcha.jhtml"/>
+			    <img src="${pageContext.request.contextPath}/code"/>
 			    </div>
 			    
 			  </div>
