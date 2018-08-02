@@ -23,11 +23,12 @@ public class CacheFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		
+		System.out.println("CacheFilter start 缓存静态资源");
+		
 		// 强制 类型 转换 
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		
-		System.out.println(httpServletRequest.getRequestURI()+":CacheFilter...");
 		// 设置缓存多长时间就可以了 .......
 		httpServletResponse.setHeader("cache-control", "max-age=3600");
 		
@@ -36,6 +37,9 @@ public class CacheFilter implements Filter {
 		
 		// 放行
 		chain.doFilter(httpServletRequest, httpServletResponse);
+		
+		
+		System.out.println("CacheFilter end 缓存静态资源");
 	}
 	public void destroy() {
 	}
