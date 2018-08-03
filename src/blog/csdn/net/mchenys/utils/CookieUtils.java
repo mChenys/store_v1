@@ -2,7 +2,7 @@ package blog.csdn.net.mchenys.utils;
 
 import javax.servlet.http.Cookie;
 
-public class CookUtils {
+public class CookieUtils {
 	/**
 	 * 通过名称在cookie数组获取指定的cookie
 	 * @param name cookie名称

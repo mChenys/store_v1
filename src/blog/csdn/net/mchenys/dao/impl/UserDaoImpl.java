@@ -20,15 +20,7 @@ public class UserDaoImpl implements UserDao {
 				user.getTelephone(), user.getBirthday(), user.getSex(), user.getState(), user.getCode());
 	}
 
-	/**
-	 * 根据激活码查找用户
-	 */
-	@Override
-	public User getByCode(String code) throws Exception {
-		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
-		String sql = "select * from user where code = ? limit 1";
-		return qr.query(sql, new BeanHandler<User>(User.class),code);
-	}
+	
 
 	/**
 	 * 更新用户
@@ -42,17 +34,18 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getByName(String username) throws Exception {
+	public User getByColumnAndVlaue(String column,String value) throws Exception {
 		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
-		String sql= "select * from user where username=? limit 1";
-		return qr.query(sql, new BeanHandler<User>(User.class),username);
+		String sql= "select * from user where "+column+" =? limit 1";
+		return qr.query(sql, new BeanHandler<User>(User.class),value);
 	}
+
+
 
 	@Override
-	public User getByEmail(String email) throws Exception {
+	public User getByNameAndPassword(String username, String password) throws Exception {
 		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
-		String sql= "select * from user where email=? limit 1";
-		return qr.query(sql, new BeanHandler<User>(User.class),email);
+		String sql= "select * from user where username=? and password=? limit 1";
+		return qr.query(sql, new BeanHandler<User>(User.class),username,password);
 	}
-
 }

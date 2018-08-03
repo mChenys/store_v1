@@ -30,7 +30,7 @@ public class NoCacheFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("NoCacheFilter start 禁止jsp页面缓存");
+		//System.out.println("NoCacheFilter start 禁止jsp页面缓存");
 		
 		// 强转request和response对象
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -45,7 +45,7 @@ public class NoCacheFilter implements Filter {
 		chain.doFilter(httpServletRequest, httpServletResponse);
 		
 		
-		System.out.println("NoCacheFilter end 禁止jsp页面缓存");
+		//System.out.println("NoCacheFilter end 禁止jsp页面缓存");
 	}
 
 	public void destroy() {

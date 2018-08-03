@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User active(String code) throws Exception {
 		UserDao dao = new UserDaoImpl();
-		User user = dao.getByCode(code);
+		User user = dao.getByColumnAndVlaue("code",code);
 		if(user!=null) {
 			//更新状态
 			user.setState(1);
@@ -37,13 +37,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User checkUserName(String username) throws Exception {
 		UserDao dao = new UserDaoImpl();
-		return dao.getByName(username);
+		return dao.getByColumnAndVlaue("username",username);
 	}
 
 	@Override
 	public User checkEmail(String email) throws Exception {
 		UserDao dao = new UserDaoImpl();
-		return dao.getByEmail(email);
+		return dao.getByColumnAndVlaue("email",email);
+	}
+
+	@Override
+	public User login(String username, String password) throws Exception {
+		UserDao dao = new UserDaoImpl();
+		return dao.getByNameAndPassword(username,password);
 	}
 
 }

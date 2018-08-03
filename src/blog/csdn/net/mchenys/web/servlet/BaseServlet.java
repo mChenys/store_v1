@@ -25,7 +25,7 @@ public class BaseServlet extends HttpServlet {
 			if (action == null) {
 				action = "index";// 让其执行默认的方法,即跳去首页
 			}
-			System.out.println("执行方法:"+action);
+			System.out.println(this.getClass().getSimpleName()+"执行方法:"+action);
 			// 通过反射执行对应的方法
 			Method method = this.getClass().getMethod(action, HttpServletRequest.class, HttpServletResponse.class);
 

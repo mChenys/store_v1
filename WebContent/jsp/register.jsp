@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
 <head>
@@ -75,7 +76,7 @@ font {
 					remote:{
 						type:"POST",
  						url:"${pageContext.request.contextPath}/user?act=checkCode",
- 						data:{emial:$("#code").val() }
+ 						data:{rcode:function(){ return $("#code").val() }}
  					}
 				}
 				
@@ -100,7 +101,9 @@ font {
  		})
  		
  		
- 	
+ 	$("#codeImg").click(function(){
+			$(this).prop("src","${pageContext.request.contextPath}/code?"+Math.random());
+		})
  		
  	})
  </script>
@@ -115,21 +118,7 @@ font {
             	时间：2015-12-30
             	描述：菜单栏
             -->
-			<div class="container-fluid">
-				<div class="col-md-4">
-					<%-- <img src="${pageContext.request.contextPath}/img/logo2.png" /> --%>
-				</div>
-				<div class="col-md-5">
-					<img src="${pageContext.request.contextPath}/img/header.png" />
-				</div>
-				<div class="col-md-3" style="padding-top:20px">
-					<ol class="list-inline">
-						<li><a href="login.htm">登录</a></li>
-						<li><a href="register.htm">注册</a></li>
-						<li><a href="cart.htm">购物车</a></li>
-					</ol>
-				</div>
-			</div>
+			<jsp:include page="header.jsp"></jsp:include>
 			<!--
             	时间：2015-12-30
             	描述：导航条
@@ -242,7 +231,7 @@ font {
 			      
 			    </div>
 			    <div class="col-sm-2">
-			    <img src="${pageContext.request.contextPath}/code"/>
+			    <img id="codeImg" src="${pageContext.request.contextPath}/code"/>
 			    </div>
 			    
 			  </div>

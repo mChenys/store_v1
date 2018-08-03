@@ -20,9 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 public class CodeServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//去掉缓存
+		response.setHeader("Pragma","No-cache");
+		response.setHeader("Cache-Control","no-cache");
+		response.setDateHeader("Expires", 0);
 
 		// 使用java图形界面技术绘制一张图片
-
 		int charNum = 4;
 		int width = 30 * 4;
 		int height = 30;
@@ -83,6 +86,9 @@ public class CodeServlet extends HttpServlet {
 
 		// 图片输出 ImageIO
 		ImageIO.write(bufferedImage, "jpg", response.getOutputStream());
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
+
 
 	}
 

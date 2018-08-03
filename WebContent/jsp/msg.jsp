@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -19,21 +20,7 @@
             	时间：2015-12-30
             	描述：菜单栏
             -->
-			<div class="container-fluid">
-				<div class="col-md-4">
-					<%-- <img src="${pageContext.request.contextPath}/img/logo2.png" /> --%>
-				</div>
-				<div class="col-md-5">
-					<img src="${pageContext.request.contextPath}/img/header.png" />
-				</div>
-				<div class="col-md-3" style="padding-top:20px">
-					<ol class="list-inline">
-						<li><a href="">登录</a></li>
-						<li><a href="">注册</a></li>
-						<li><a href="">购物车</a></li>
-					</ol>
-				</div>
-			</div>
+			<jsp:include page="header.jsp"></jsp:include>
 			<!--
             	时间：2015-12-30
             	描述：导航条

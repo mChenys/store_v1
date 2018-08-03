@@ -6,12 +6,10 @@ public interface UserDao {
 
 	void add(User user) throws Exception;
 
-	User getByCode(String code) throws Exception;
-
 	void update(User user) throws Exception;
 
-	User getByName(String username) throws Exception;
+	User getByColumnAndVlaue(String column,String value) throws Exception;
 
-	User getByEmail(String email) throws Exception;
+	User getByNameAndPassword(String username, String password) throws Exception;
 
 }

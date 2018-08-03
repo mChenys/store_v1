@@ -23,7 +23,7 @@ public class CacheFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		
-		System.out.println("CacheFilter start 缓存静态资源");
+		//System.out.println("CacheFilter start 缓存静态资源");
 		
 		// 强制 类型 转换 
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -39,7 +39,7 @@ public class CacheFilter implements Filter {
 		chain.doFilter(httpServletRequest, httpServletResponse);
 		
 		
-		System.out.println("CacheFilter end 缓存静态资源");
+		//System.out.println("CacheFilter end 缓存静态资源");
 	}
 	public void destroy() {
 	}

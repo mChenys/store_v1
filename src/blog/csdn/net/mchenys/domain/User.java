@@ -1,8 +1,12 @@
 package blog.csdn.net.mchenys.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+import javax.servlet.http.HttpSessionActivationListener;
+import javax.servlet.http.HttpSessionEvent;
+
+public class User implements Serializable,HttpSessionActivationListener{
 
 	public String uid;
 	public String username;
@@ -95,6 +99,18 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Override
+	public void sessionWillPassivate(HttpSessionEvent se) {
+		System.out.println("user 被钝化...");
+		
+	}
+
+	@Override
+	public void sessionDidActivate(HttpSessionEvent se) {
+		System.out.println("user 被活化...");
+		
 	}
 
 }

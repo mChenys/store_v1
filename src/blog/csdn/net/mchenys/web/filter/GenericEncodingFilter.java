@@ -32,7 +32,7 @@ public class GenericEncodingFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		System.out.println("GenericEncodingFilter start 决解编码问题");
+		//System.out.println("GenericEncodingFilter start 决解编码问题");
 		
 		// 强转
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -47,7 +47,7 @@ public class GenericEncodingFilter implements Filter {
 		// 放行
 		chain.doFilter(req, httpServletResponse);
 
-		System.out.println("GenericEncodingFilter end 决解编码问题");
+		//System.out.println("GenericEncodingFilter end 决解编码问题");
 	}
 
 	@Override
