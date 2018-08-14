@@ -45,7 +45,7 @@ public class BaseServlet extends HttpServlet {
 
 	}
 	//默认的方法
-	public String index(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public String index(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//empty 由子类去实现跳去首页的方法
 		return null;
 	}

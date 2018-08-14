@@ -86,8 +86,7 @@ public class CodeServlet extends HttpServlet {
 
 		// 图片输出 ImageIO
 		ImageIO.write(bufferedImage, "jpg", response.getOutputStream());
-		response.getOutputStream().flush();
-		response.getOutputStream().close();
+		
 
 
 	}
