@@ -11,7 +11,7 @@
 		$.get("${pageContext.request.contextPath}/category?act=findAll",function(data){
 			var $ul = $("#categoryId");
 			$(data).each(function(){
-				$ul.append($("<li><a href='#'>"+this.cname+"</a></li>"));
+				$ul.append($("<li><a href='${pageContext.request.contextPath}/product?act=getByPage&pageNo=1&cid="+this.cid+"'>"+this.cname+"</a></li>"));
 			})
 		},"json");
 	})
@@ -67,7 +67,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">首页</a>
+				<a class="navbar-brand" href="${pageContext.request.contextPath }">首页</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->

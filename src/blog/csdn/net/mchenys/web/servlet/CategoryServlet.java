@@ -20,7 +20,7 @@ import net.sf.json.JSONArray;
  */
 @WebServlet("/category")
 public class CategoryServlet extends BaseServlet {
-
+	//查询所有分类
 	public  String findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, Exception {
 		CategoryService service = new CategoryServiceImpl();
 		List<Category> list = service.getCategorys();

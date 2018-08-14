@@ -13,4 +13,8 @@ public interface ProductDao {
 	Product getById(String id) throws Exception;
 
 	String getCidById(String id) throws Exception;
+
+	List<Product> findByCidLimit(int index, Integer pageSize, String cid) throws Exception;
+
+	Integer findCountByCid(String cid) throws Exception;
 }

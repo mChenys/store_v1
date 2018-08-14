@@ -6,6 +6,7 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import com.sun.xml.internal.bind.v2.util.DataSourceSource;
 
@@ -38,8 +39,23 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public String getCidById(String pid) throws Exception {
 		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
-		String sql="select * from product where pid=? limit 1";
-		return (String) qr.query(sql, new ColumnListHandler("cid"),pid).get(0);
+		String sql = "select * from product where pid=? limit 1";
+		return (String) qr.query(sql, new ColumnListHandler("cid"), pid).get(0);
+	}
+
+	@Override
+	public List<Product> findByCidLimit(int index, Integer pageSize, String cid) throws Exception {
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from product where cid=? limit ?,?";
+		return qr.query(sql, new BeanListHandler<Product>(Product.class), cid, index, pageSize);
+	}
+
+	@Override
+	public Integer findCountByCid(String cid) throws Exception {
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select count(*) from product where cid=?";
+		Long count = (Long) qr.query(sql, new ScalarHandler(), cid);
+		return count.intValue();
 	}
 
 }
